@@ -68,7 +68,7 @@ cap.set(4,480)
 
 
 glad = 'thanks'
-det = 'face detection'
+
 userName= 'PATRICK'
 
 engine = pyttsx3.init()
@@ -146,14 +146,13 @@ def wishme():
         speak("Good night sir. sleep well but don't forget to pray")
         
 if not ser.isOpen():
-    speak("Establishing the connection with the Arduino board! Please, wait a moment!")
-    pause.seconds(5)
-    speak("the connection has been established!")
-    speak("Hello! my name is Worldtec!")
-    
-    
+   
     ser.open()
 print('COM6 is open', ser.isOpen() )
+speak("Establishing the connection with the Arduino board! Please, wait a moment!")
+pause.seconds(5)
+speak("the connection has been established!")
+speak("Hello! my name is Worldtec!")
        
 
 
@@ -178,7 +177,7 @@ def takecommand():
 
 
 
-speak("Noted with thnaks")
+
 def play_songs():
    
     music_dir = r"D:\DOCUMENTS\New folder\USB Drive"
@@ -300,7 +299,7 @@ if __name__=='__main__':
         elif 'make a note' in query:
             query = query.replace("make a note", "")
             note(query)
-        elif 'note' in query:
+        elif 'remember' in query:
             speak("what do you want me to remember?")
             data = takecommand()
             speak("you told me to remember " + data)
@@ -316,7 +315,7 @@ if __name__=='__main__':
             song = query.replace('play on youtube','')
             speak('playing ' + song)
             pywhatkit.playonyt(song)
-        elif det in query:
+        elif 'face' in query:
             speak("Starting face detection " + userName)
             webcam()
         elif 'temp' in query or 'temperature' in query:
@@ -337,7 +336,7 @@ if __name__=='__main__':
             note = open("data.txt", "r")
             speak("Yes" + userName)
             speak("you told me to remember " + note.read())
-            speak("Google chrome is opening now")
+            
         elif 'open excel' in query:
             excelpath=r"C:\Program Files\Microsoft Office\root\Office16\EXCEL.EXE"
             excel=subprocess.Popen(excelpath)
@@ -410,9 +409,10 @@ if __name__=='__main__':
             query = takecommand()
             speak("Alright " + userName + "wait a minute!")          
 
-            person = query.replace('wik' or 'search' or 'wikepedia',"")
+            query = query.replace('wik' or 'search' or 'wikepedia',"")
+            
+            info = wikipedia.summary(query, 3)
             try:
-                info = wikipedia.summary(person, sentance=3)
                 print(info)
                 speak(info)
             except:
